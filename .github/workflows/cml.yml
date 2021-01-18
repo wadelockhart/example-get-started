@@ -8,13 +8,9 @@ jobs:
     container: docker://dvcorg/cml-py3:latest
     steps:
       - uses: actions/checkout@v2
-      - name: Generate report
-        env:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          dvc plots show --show-vega prc.json > vega.json
-          vl2svg vega.json prc.svg
-          
-          echo "## Metrics report" > report.md
-          cml-publish prc.svg --md >> report.md
-          cml-send-comment report.md
+        with:
+          message: |
+            **Howdie!**
+          proxy-url: https://add-pr-comment-proxy-94idvmwyie-uc.a.run.app
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Coverage Report
